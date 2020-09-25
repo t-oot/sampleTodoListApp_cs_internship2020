@@ -18,8 +18,8 @@ REVERSED_CLIENT_ID：クライアント IDの「.」で区切られた文字列�
 
 3. envファイルに以下を記述（作成した～は適宜変更）
 ```
-    var client_id = '作成したクライアントIDをここに記入'  
-    var client_secret = '作成したクライアントシークレットをここに記入'  
+var clientId = 'クライアントID';
+var clientSecret = 'クライアントシークレット';
 ```
 
 4. プロジェクトのディレクトリをコマンドラインで開き、  
