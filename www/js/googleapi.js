@@ -1,6 +1,6 @@
 var scope = 'https://www.googleapis.com/auth/tasks';
 var accessToken = null;
-var redirect_uri = 'http://localhost:8000';
+var redirect_uri = '';
 
 /**
  * Google APIの認証
