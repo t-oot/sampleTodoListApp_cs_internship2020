@@ -1,7 +1,11 @@
 var scope = "https://www.googleapis.com/auth/tasks";
 var accessToken = null;
 var redirect_uri = "";
-
+//
+$.ajaxSetup({
+  cache: false,
+});
+//
 /**
  * Google APIの認証
  */
@@ -89,6 +93,31 @@ var getAccessTokenByRefreshToken = function () {
       window.localStorage.removeItem("refresh_token");
       // ログインから再度実行
       clickLoginButton();
+    });
+};
+
+/**
+ * GET 編集のためのタスクリストを取得して表示する(Tasks: list)
+ * @param {boolean} getCompleted 完了タスクを取得するか
+ */
+var getTaskslistEdit = function () {
+  if (!accessToken) {
+    return;
+  }
+
+  // タスクを取得(デフォルトのリストを指定)
+  $.get("https://www.googleapis.com/tasks/v1/lists/@default/tasks", {
+    access_token: accessToken,
+    showCompleted: true, //完了タスクの取得のため必要
+    showHidden: true, //完了タスクの取得のため必要
+  })
+    .done(function (data, status) {
+      console.log(status, data);
+      // 取得したタスクでリストを表示
+      dispTasksListEdit(data);
+    })
+    .fail(function (data, status) {
+      console.log(status, data);
     });
 };
 

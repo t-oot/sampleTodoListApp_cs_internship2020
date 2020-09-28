@@ -11,6 +11,10 @@ document.addEventListener('init', function (event) {
     // 完了済みタスクを取得
     getTaskslist(true);
   }
+else { //暫定的。
+    // 完了済みタスクを取得
+    getTaskslistEdit();
+  }
 });
 
 // Wait for device API libraries to load
