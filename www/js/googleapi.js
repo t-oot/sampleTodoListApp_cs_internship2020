@@ -179,6 +179,7 @@ var updateTasks = function (task, updateTask) {
     success: function (data, status) {
       console.log(status, data);
       getTaskslist();
+      getTaskslist(true);
     },
 
     error: function (data, status) {

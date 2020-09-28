@@ -22,7 +22,21 @@ var dispTasksListCompleted = function (data) {
         // 空の<ons-list-item>を作成
         var elem_list_item = document.createElement("ons-list-item");
         // <ons-list-item>のHTML要素にタイトル名を追加
-        elem_list_item.innerHTML = taskTitle;
+        elem_list_item.innerHTML =
+          `
+        <label class="left">
+        <ons-checkbox input-id="check-` +
+          i +
+          `" onchange='inCompleteTask(` +
+          JSON.stringify(data.items[i]) +
+          `)' checked></ons-checkbox>
+      </label>
+      <label for="check-1" class="center">
+        ` +
+          taskTitle +
+          `
+      </label>`;
+        console.log(elem_list_item.innerHTML);
         // <ons-list-item>タスクをリストに追加
         elem_list.appendChild(elem_list_item);
       }
@@ -54,14 +68,44 @@ var dispTasksList = function (data) {
         // 空の<ons-list-item>を作成
         var elem_list_item = document.createElement("ons-list-item");
         // <ons-list-item>のHTML要素にタイトル名を追加
-        elem_list_item.innerHTML = taskTitle;
+        elem_list_item.innerHTML =
+          `
+        <label class="left">
+        <ons-checkbox input-id="check-` +
+          i +
+          `" onchange='CompleteTask(` +
+          JSON.stringify(data.items[i]) +
+          `)' checked></ons-checkbox>
+      </label>
+      <label for="check-1" class="center">
+        ` +
+          taskTitle +
+          `
+      </label>`;
+        console.log(elem_list_item.innerHTML);
         // <ons-list-item>タスクをリストに追加
         elem_list.appendChild(elem_list_item);
       }
     }
   }
 };
+/**
+ * タスクを完了させる
+ *  @param {int} id 完了させようとするタスクのID
+ */
+var CompleteTask = function (task) {
+  task["status"] = "completed";
+  updateTasks(task["id"], task);
+};
 
+/**
+ * タスクを未完了させる
+ *  @param {int} id 完了させようとするタスクのID
+ */
+var inCompleteTask = function (task) {
+  task["status"] = "needsAction";
+  updateTasks(task["id"], task);
+};
 /**
  * タスク追加
  */
@@ -97,6 +141,7 @@ var addTask = function () {
       console.log(status, data);
       hideInsertDialog();
       getTaskslist(); // リストを更新
+      getTaskslist(true);
     },
 
     error: function (data, status) {
