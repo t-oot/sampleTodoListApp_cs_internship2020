@@ -7,6 +7,10 @@ document.addEventListener('init', function (event) {
     // タスクを取得
     getTaskslist();
   }
+  if (page.matches('#list-page-completed')) {
+    // 完了済みタスクを取得
+    getTaskslist(true);
+  }
 });
 
 // Wait for device API libraries to load
