@@ -26,3 +26,4 @@ function onDeviceReady() {
     document.querySelector('#appNavigator').pushPage('login.html', { animation: "fade" });
   }
 }
+

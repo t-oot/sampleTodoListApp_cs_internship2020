@@ -66,17 +66,67 @@ var dispTasksList = function (data) {
  * タスク追加
  */
 var addTask = function () {
-  // TODO
+  // 入力値の取得
+  item = document.getElementById("input_task_title").value;
+
+  if (!accessToken) {
+    return;
+  }
+  //何も入力されていない場合は追加しない(空白文字列との厳密な比較)
+  if (item === "") {
+    hideInsertDialog();
+    //Toast_error.show();
+    ons.notification.toast("タイトルが入力されていません", { timeout: 2000 }); //2秒間トースト表示
+    return;
+  }
+  var inputTask = {
+    title: item,
+  };
+
+  $.ajax({
+    type: "post",
+    url:
+      "https://www.googleapis.com/tasks/v1/lists/@default/tasks?access_token=" +
+      accessToken,
+    data: JSON.stringify(inputTask), // 追加するタスク情報
+    contentType: "application/JSON",
+    dataType: "JSON",
+    scriptCharset: "utf-8",
+
+    success: function (data, status) {
+      console.log(status, data);
+      hideInsertDialog();
+      getTaskslist(); // リストを更新
+    },
+
+    error: function (data, status) {
+      // Error
+      console.log(status, data);
+    },
+  });
 };
 
 /**
  * タスク追加ダイアログを表示
  */
 var createInsertDialog = function () {
-  // TODO
+  var dialog = document.getElementById("insert-task");
+
+  if (dialog) {
+    dialog.show();
+  } else {
+    ons
+      .createElement("insert_task_dialog.html", { append: true })
+      .then(function (dialog) {
+        dialog.show();
+      });
+  }
 };
 
-// タスク追加ダイアログを非表示
+/**
+ * タスク追加ダイアログを非表示
+ */
 var hideInsertDialog = function () {
-  // TODO
+  document.getElementById("insert-task").hide();
+  document.getElementById("input_task_title").value = "";
 };
