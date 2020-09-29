@@ -100,7 +100,7 @@ var getAccessTokenByRefreshToken = function () {
  * GET 編集のためのタスクリストを取得して表示する(Tasks: list)
  * @param {boolean} getCompleted 完了タスクを取得するか
  */
-var getTaskslistEdit = function () {
+var getTaskslistEdit = function (done) {
   if (!accessToken) {
     return;
   }
@@ -115,6 +115,7 @@ var getTaskslistEdit = function () {
       console.log(status, data);
       // 取得したタスクでリストを表示
       dispTasksListEdit(data);
+      if (done) done();
     })
     .fail(function (data, status) {
       console.log(status, data);
@@ -125,7 +126,7 @@ var getTaskslistEdit = function () {
  * GET タスクリストを取得して表示する(Tasks: list)
  * @param {boolean} getCompleted 完了タスクを取得するか
  */
-var getTaskslist = function (getCompleted) {
+var getTaskslist = function (getCompleted, done) {
   if (!accessToken) {
     return;
   }
@@ -144,6 +145,7 @@ var getTaskslist = function (getCompleted) {
       } else {
         dispTasksList(data);
       }
+      if (done) done();
     })
     .fail(function (data, status) {
       console.log(status, data);

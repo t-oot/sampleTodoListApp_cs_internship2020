@@ -44,6 +44,31 @@ var dispTasksListEdit = function (data) {
       }
     }
   }
+
+  //編集するTODOのリストプルフック
+  var pullHook = document.getElementById("pull-hook-edit");
+
+  pullHook.addEventListener("changestate", function (event) {
+    var message = "";
+
+    switch (event.state) {
+      case "initial":
+        message = "スワイプして更新";
+        break;
+      case "preaction":
+        message = "離してください";
+        break;
+      case "action":
+        message = "更新中...";
+        break;
+    }
+
+    pullHook.innerHTML = message;
+  });
+
+  pullHook.onAction = function (done) {
+    getTaskslistEdit(done);
+  };
 };
 
 /**
@@ -90,6 +115,31 @@ var dispTasksListCompleted = function (data) {
       }
     }
   }
+
+  //完了したTODOのリストプルフック
+  pullHook = document.getElementById("pull-hook-done");
+
+  pullHook.addEventListener("changestate", function (event) {
+    var message = "";
+
+    switch (event.state) {
+      case "initial":
+        message = "スワイプして更新";
+        break;
+      case "preaction":
+        message = "離してください";
+        break;
+      case "action":
+        message = "更新中...";
+        break;
+    }
+
+    pullHook.innerHTML = message;
+  });
+
+  pullHook.onAction = function (done) {
+    getTaskslist(true, done);
+  };
 };
 
 /**
@@ -136,6 +186,30 @@ var dispTasksList = function (data) {
       }
     }
   }
+  //進行中のTODOのリストプルフック
+  var pullHook = document.getElementById("pull-hook");
+
+  pullHook.addEventListener("changestate", function (event) {
+    var message = "";
+
+    switch (event.state) {
+      case "initial":
+        message = "スワイプして更新";
+        break;
+      case "preaction":
+        message = "離してください";
+        break;
+      case "action":
+        message = "更新中...";
+        break;
+    }
+
+    pullHook.innerHTML = message;
+  });
+
+  pullHook.onAction = function (done) {
+    getTaskslist(false, done);
+  };
 };
 /**
  * タスクを完了させる
