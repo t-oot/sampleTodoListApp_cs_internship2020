@@ -1,0 +1,2 @@
+[0929/165352.652:ERROR:registration_protocol_win.cc(103)] CreateFile: 指定されたファイルが見つかりません。 (0x2)
+[0929/165523.395:ERROR:registration_protocol_win.cc(103)] CreateFile: 指定されたファイルが見つかりません。 (0x2)
