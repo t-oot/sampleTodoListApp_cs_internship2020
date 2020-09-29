@@ -325,11 +325,23 @@ var hideInsertDialog = function () {
 var openEditor = function () {
   var elem_list = document.getElementById("listView");
   // 子要素を全て削除
-  elem_list.textContent = null;
-  if (elem_list) elem_list = document.getElementById("listView_completed");
+  if (elem_list) elem_list.textContent = null;
+  elem_list = document.getElementById("listView_completed");
   // 子要素を全て削除
   if (elem_list) elem_list.textContent = null;
   document
     .querySelector("#appNavigator")
     .pushPage("toolbar_edit.html", { animation: "fade" });
+};
+/**
+ * TODOリスト画面に戻る
+ */
+var showTODOList = function () {
+  document
+    .querySelector("#appNavigator")
+    .popPage()
+    .then(function () {
+      getTaskslist(); // リストを更新
+      getTaskslist(true);
+    });
 };
