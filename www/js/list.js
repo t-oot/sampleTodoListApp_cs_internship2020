@@ -329,9 +329,37 @@ var addTask = function () {
 
     success: function (data, status) {
       console.log(status, data);
-      hideInsertDialog();
-      getTaskslist(); // リストを更新
-      getTaskslist(true);
+      if (document.getElementById("map_check").checked) {
+        data["notes"] = map.center.toString();
+        $.ajax({
+          type: "put",
+          url:
+            "https://www.googleapis.com/tasks/v1/lists/@default/tasks/" +
+            data["id"] +
+            "?access_token=" +
+            accessToken,
+          data: JSON.stringify(data), // 変更するタスク情報(idを含める)
+          contentType: "application/JSON",
+          dataType: "JSON",
+          scriptCharset: "utf-8",
+
+          success: function (data, status) {
+            console.log(status, data);
+            hideInsertDialog();
+            getTaskslist(); // リストを更新
+            getTaskslist(true);
+          },
+
+          error: function (data, status) {
+            // Error
+            console.log(status, data);
+          },
+        });
+      } else {
+        hideInsertDialog();
+        getTaskslist(); // リストを更新
+        getTaskslist(true);
+      }
     },
 
     error: function (data, status) {
@@ -381,7 +409,9 @@ var createInsertDialog = function () {
     ons
       .createElement("insert_task_dialog.html", { append: true })
       .then(function (dialog) {
-        dialog.show();
+        dialog.show().then(function () {
+          initMap();
+        });
       });
   }
 };
@@ -418,4 +448,8 @@ var showTODOList = function () {
       getTaskslist(); // リストを更新
       getTaskslist(true);
     });
+};
+
+var toggleMap = function (e) {
+  document.getElementById("wrap").hidden = !e.checked;
 };

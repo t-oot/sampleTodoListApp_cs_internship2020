@@ -1,30 +1,75 @@
 <!DOCTYPE html>
 <html>
-
-<head>
+  <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
     <!-- CSS読み込み -->
-    <link type="text/css" href="lib/onsenui/css/onsenui.css" rel="stylesheet">
-    <link type="text/css" href="lib/onsenui/css/dark-onsen-css-components.css" rel="stylesheet">
+    <link type="text/css" href="lib/onsenui/css/onsenui.css" rel="stylesheet" />
+    <link
+      type="text/css"
+      href="lib/onsenui/css/dark-onsen-css-components.css"
+      rel="stylesheet"
+    />
 
     <!-- ライブラリ読み込み -->
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/onsenui/js/onsenui.js"></script>
     <script type="text/javascript" src="lib/js/jquery-1.10.1.min.js"></script>
-
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkfdd_KX5RWhQlT1Z7Dkk_SdbZahnsNtM"
+      async
+      defer
+    ></script>
+    <script>
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 35.6811673, lng: 139.7670516 },
+          zoom: 12,
+          disableDefaultUI: true,
+        });
+      }
+    </script>
+    <style>
+      #wrap {
+        position: relative;
+    
+      }
+      #map {
+        width: 100%;
+        height: 100%;
+      }
+      #cross {
+        position: absolute;
+        width: 2px;
+        height: 20px;
+        background: #000;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        pointer-events: none;
+      }
+      #cross::before {
+        content: "";
+        position: absolute;
+        width: 20px;
+        height: 2px;
+        background: #000;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    </style>
     <title>TODO List App</title>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- ページ表示 -->
     <ons-navigator id="appNavigator" page=""></ons-navigator>
-</body>
+  </body>
 
-<!-- 各処理読み込み -->
-<script type="text/javascript" src="js/env.js"></script>
-<script type="text/javascript" src="js/index.js"></script>
-<script type="text/javascript" src="js/googleapi.js"></script>
-<script type="text/javascript" src="js/list.js"></script>
-
+  <!-- 各処理読み込み -->
+  <script type="text/javascript" src="js/env.js"></script>
+  <script type="text/javascript" src="js/index.js"></script>
+  <script type="text/javascript" src="js/googleapi.js"></script>
+  <script type="text/javascript" src="js/list.js"></script>
 </html>

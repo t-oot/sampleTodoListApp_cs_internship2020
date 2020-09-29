@@ -6,6 +6,21 @@
       modifier=""
       placeholder="タスクを追加"
     ></ons-input>
+    <ons-list-item tappable>
+      <label class="left">
+        <ons-checkbox
+          input-id="map_check"
+          onchange="toggleMap(this)"
+        ></ons-checkbox>
+      </label>
+      <label for="map_check" class="center">
+        特定の位置付近に接近した際、通知
+      </label>
+    </ons-list-item>
+    <div id="wrap" hidden>
+      <div id="map" style="width: 100%; height: 300px"></div>
+      <div id="cross"></div>
+    </div>
   </div>
   <!-- ボタン -->
   <div class="alert-dialog-footer">
