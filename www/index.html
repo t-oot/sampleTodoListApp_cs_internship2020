@@ -15,11 +15,6 @@
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="lib/onsenui/js/onsenui.js"></script>
     <script type="text/javascript" src="lib/js/jquery-1.10.1.min.js"></script>
-    <script
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDkfdd_KX5RWhQlT1Z7Dkk_SdbZahnsNtM"
-      async
-      defer
-    ></script>
     <script>
       function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
@@ -32,7 +27,6 @@
     <style>
       #wrap {
         position: relative;
-    
       }
       #map {
         width: 100%;
@@ -72,4 +66,9 @@
   <script type="text/javascript" src="js/index.js"></script>
   <script type="text/javascript" src="js/googleapi.js"></script>
   <script type="text/javascript" src="js/list.js"></script>
+  <script>
+            var sc = document.createElement("script");
+      sc.src = "https://maps.googleapis.com/maps/api/js?key=" + mapkey;
+      document.body.appendChild(sc);
+  </script>
 </html>
