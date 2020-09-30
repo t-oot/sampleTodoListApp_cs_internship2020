@@ -13,6 +13,7 @@
         <variable name="REVERSED_CLIENT_ID" value="" />
         <variable name="WEB_APPLICATION_CLIENT_ID" value="" />
     </plugin>
+    <plugin name="cordova-plugin-gpslocation" spec="1" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />

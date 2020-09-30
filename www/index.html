@@ -16,17 +16,25 @@
     <script type="text/javascript" src="lib/onsenui/js/onsenui.js"></script>
     <script type="text/javascript" src="lib/js/jquery-1.10.1.min.js"></script>
     <script>
+      //位置情報の権限を取得
       const permissions = cordova.plugins.permissions;
-permissions.requestPermission(permissions.ACCESS_COARSE_LOCATION, function(status) {
-    if (status.hasPermission) {
-        // 許可された
-    } else {
-        // 許可されなかった
-    }
-}, function(error) {
-    // 許可されなかった
-    console.log(error)
-});
+      permissions.requestPermission(
+        [
+          permissions.ACCESS_COARSE_LOCATION,
+          permissions.ACCESS_BACKGROUND_LOCATION,
+        ],
+        function (status) {
+          if (status.hasPermission) {
+            // 許可された
+          } else {
+            // 許可されなかった
+          }
+        },
+        function (error) {
+          // 許可されなかった
+          console.log(error);
+        }
+      );
       function initMap() {
         map = new google.maps.Map(document.getElementById("map"), {
           center: { lat: 35.6811673, lng: 139.7670516 },
@@ -78,8 +86,8 @@ permissions.requestPermission(permissions.ACCESS_COARSE_LOCATION, function(statu
   <script type="text/javascript" src="js/googleapi.js"></script>
   <script type="text/javascript" src="js/list.js"></script>
   <script>
-            var sc = document.createElement("script");
-      sc.src = "https://maps.googleapis.com/maps/api/js?key=" + mapkey;
-      document.body.appendChild(sc);
+    var sc = document.createElement("script");
+    sc.src = "https://maps.googleapis.com/maps/api/js?key=" + mapkey;
+    document.body.appendChild(sc);
   </script>
 </html>
