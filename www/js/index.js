@@ -41,14 +41,45 @@ function onDeviceReady() {
       .pushPage("login.html", { animation: "fade" });
   }
 }
-
+//位置情報の取得結果
 function onSuccess(position) {
-  var element = document.getElementById("geolocation");
-  console.log(position.coords.latitude + "," + position.coords.longitude);
+  //console.log(position.coords.latitude + "," + position.coords.longitude);
+  for (const [key, value] of Object.entries(task_geo)) {
+    if (task_geo[key]["notified"]) continue;
+    var dist =
+      distance(
+        value.latlng[0],
+        value.latlng[1],
+        position.coords.latitude,
+        position.coords.longitude
+      ) * 1000;
+    if (dist <= 100) {
+      //100m以下で通知
+      task_geo[key]["notified"] = true;
+      cordova.plugins.notification.local.schedule({
+        title: "TODO",
+        text: value.title,
+        foreground: true,
+      });
+    }
+  }
 }
 
-// onError Callback receives a PositionError object
-//
+//位置情報取得エラー
 function onError(error) {
   alert("code: " + error.code + "\n" + "message: " + error.message + "\n");
+}
+//2点間の緯度経度距離
+function distance(lat1, lng1, lat2, lng2) {
+  lat1 *= Math.PI / 180;
+  lng1 *= Math.PI / 180;
+  lat2 *= Math.PI / 180;
+  lng2 *= Math.PI / 180;
+  return (
+    6371 *
+    Math.acos(
+      Math.cos(lat1) * Math.cos(lat2) * Math.cos(lng2 - lng1) +
+        Math.sin(lat1) * Math.sin(lat2)
+    )
+  );
 }

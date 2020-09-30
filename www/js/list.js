@@ -1,4 +1,5 @@
 var task_editid = "";
+var task_geo = {};
 /**
  * 編集用タスクリスト表示
  * @param {JSON} data 表示するタスクのリスト
@@ -17,7 +18,6 @@ var dispTasksListEdit = function (data) {
     if (data.items[i].status === "needsAction") {
       // タスクのタイトルを取得
       var taskTitle = data.items[i].title;
-
       // タスクのタイトルがあるとき
       if (taskTitle) {
         // 空の<ons-list-item>を作成
@@ -160,7 +160,24 @@ var dispTasksList = function (data) {
     if (data.items[i].status === "needsAction") {
       // タスクのタイトルを取得
       var taskTitle = data.items[i].title;
-
+      if (data.items[i].notes) {
+        try {
+          var json = JSON.parse(
+            data.items[i].notes.replace(")", "]").replace("(", "[")
+          );
+          if (json) {
+            if (
+              !task_geo[data.items[i].id] ||
+              task_geo[data.items[i].id].title != taskTitle
+            )
+              task_geo[data.items[i].id] = {
+                title: taskTitle,
+                latlng: json,
+                notified: false,
+              };
+          }
+        } catch {}
+      }
       // タスクのタイトルがあるとき
       if (taskTitle) {
         // 空の<ons-list-item>を作成
